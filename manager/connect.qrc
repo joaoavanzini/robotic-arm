@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="disconnect">images/disconnected.png</file>
+        <file alias="connect">images/connected.png</file>
+        <file alias="save">images/save.png</file>
+        <file alias="clear">images/clear.png</file>
+        <file alias="clearlog">images/clearlog.png</file>
+        <file alias="cleartable">images/cleartable.png</file>
+        <file alias="savelog">images/savelog.png</file>
+        <file alias="savetable">images/savetable.png</file>
+        <file alias="update">images/update.png</file>
+    </qresource>
+</RCC>

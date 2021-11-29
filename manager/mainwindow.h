@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QComboBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,8 +15,33 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void clearTable();
+    void clearLog();
+    void saveTable();
+    void saveLog();
+    void saveHidedLog();
+
+private slots:
+    void onSerial();
+    void openSerial();
+    void reload();
 
 private:
     Ui::MainWindow *ui;
+
+    void configSerial(void);
+    void startToolbar(void);
+    QStringList getPorts(void);
+
+    QComboBox *cbListPort;
+    bool connected = false;
+
+    QAction *actionConnect;
+    QAction *actionReload;
+    QAction *actionClearLog;
+    QAction *actionSaveLog;
+    QAction *actionClearProgram;
+    QAction *actionSaveProgram;
+    QString line;
 };
 #endif // MAINWINDOW_H
