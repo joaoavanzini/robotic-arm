@@ -23,7 +23,7 @@
      <rect>
       <x>70</x>
       <y>300</y>
-      <width>51</width>
+      <width>82</width>
       <height>93</height>
      </rect>
     </property>
@@ -146,7 +146,7 @@
       <rect>
        <x>10</x>
        <y>0</y>
-       <width>61</width>
+       <width>51</width>
        <height>381</height>
       </rect>
      </property>
@@ -428,7 +428,7 @@
       <rect>
        <x>50</x>
        <y>150</y>
-       <width>51</width>
+       <width>82</width>
        <height>111</height>
       </rect>
      </property>
