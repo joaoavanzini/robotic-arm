@@ -15,9 +15,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void clearTable();
+    void clearProgram();
     void clearLog();
-    void saveTable();
+    void saveProgram();
     void saveLog();
     void saveHidedLog();
 

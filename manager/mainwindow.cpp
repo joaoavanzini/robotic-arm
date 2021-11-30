@@ -2,16 +2,14 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
-
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/qserialport.h>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QComboBox>
-
 #include <QMessageBox>
 #include <QElapsedTimer>
-
 #include <QToolBar>
+#include <QFileDialog>
 
 QSerialPort *serialPort;
 QString portNameSerial;
@@ -67,18 +65,18 @@ void MainWindow::startToolbar(void){
 
     ui->toolBar->addAction("PROGRAM")->setDisabled(1);
     actionClearProgram = ui->toolBar->addAction(QIcon(":/cleartable"), "Clear Program");
-    //connect(actionClearTable, &QAction::triggered, this, &MainWindow::clearTable);
+    connect(actionClearProgram, &QAction::triggered, this, &MainWindow::clearProgram);
 
     actionSaveProgram = ui->toolBar->addAction(QIcon(":/save"), "Save Program");
-    //connect(actionSaveTable, &QAction::triggered, this, &MainWindow::saveTable);
+    connect(actionSaveProgram, &QAction::triggered, this, &MainWindow::saveProgram);
     ui->toolBar->addSeparator();
 
     ui->toolBar->addAction("LOG")->setDisabled(1);
     actionClearLog = ui->toolBar->addAction(QIcon(":/clearlog"), "Clear Log");
-    //connect(actionClearLog, &QAction::triggered, this, &MainWindow::clearLog);
+    connect(actionClearLog, &QAction::triggered, this, &MainWindow::clearLog);
 
     actionSaveLog = ui->toolBar->addAction(QIcon(":/save"), "Save Log");
-    //connect(actionSaveLog, &QAction::triggered, this, &MainWindow::saveLog);
+    connect(actionSaveLog, &QAction::triggered, this, &MainWindow::saveLog);
 }
 
 void MainWindow::onSerial(){
@@ -136,10 +134,73 @@ void MainWindow::reload(void){
 
 }
 
+void MainWindow::clearLog(void){
+    ui->textEdit_log->clear();
+}
+
+void MainWindow::saveLog(void){
+    QString path = QFileDialog::getSaveFileName(this, "Save File", "robot-log", "txt (*.txt *.doc *.docx)");
+    if(path.isEmpty() == false){
+        QFile file;
+        file.setFileName(path);
+        bool ret = file.open(QIODevice::WriteOnly);
+        if(ret){
+            QString str = ui->textEdit_log->toPlainText();
+            file.write(str.toUtf8());
+            file.close();
+        }else{
+            QMessageBox savelogMessage;
+            savelogMessage.setWindowTitle("Warning");
+            savelogMessage.setText("Problem to write the file!");
+            savelogMessage.setDefaultButton(QMessageBox::Ok);
+            savelogMessage.show();
+            savelogMessage.exec();
+        }
+    }else{
+        QMessageBox savelogMessageCancel;
+        savelogMessageCancel.setWindowTitle("Warning");
+        savelogMessageCancel.setText("Operation canceled!");
+        savelogMessageCancel.setDefaultButton(QMessageBox::Ok);
+        savelogMessageCancel.show();
+        savelogMessageCancel.exec();
+    }
+}
+
+void MainWindow::clearProgram(){
+    ui->textEdit_program->clear();
+}
+
+void MainWindow::saveProgram(){
+    QString path = QFileDialog::getSaveFileName(this, "Save File", "robot-program", "rbt (*.rbt)");
+    if(path.isEmpty() == false){
+        QFile file;
+        file.setFileName(path);
+        bool ret = file.open(QIODevice::WriteOnly);
+        if(ret){
+            QString str = ui->textEdit_program->toPlainText();
+            file.write(str.toUtf8());
+            file.close();
+        }else{
+            QMessageBox savelogMessage;
+            savelogMessage.setWindowTitle("Warning");
+            savelogMessage.setText("Problem to write the file!");
+            savelogMessage.setDefaultButton(QMessageBox::Ok);
+            savelogMessage.show();
+            savelogMessage.exec();
+        }
+    }else{
+        QMessageBox savelogMessageCancel;
+        savelogMessageCancel.setWindowTitle("Warning");
+        savelogMessageCancel.setText("Operation canceled!");
+        savelogMessageCancel.setDefaultButton(QMessageBox::Ok);
+        savelogMessageCancel.show();
+        savelogMessageCancel.exec();
+    }
+}
 
 void MainWindow::on_pushButton_control_play_clicked()
 {
-    QString value_text = ui->textEdit_program->toPlainText();
-    serialPort->write(value_text.toUtf8());
+    QString value_text_program = ui->textEdit_program->toPlainText();
+    serialPort->write(value_text_program.toUtf8());
 }
 
