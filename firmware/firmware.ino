@@ -34,7 +34,8 @@ void loop() {
     else{
       j1.write(data["j1"][0].as<int>(), data["j1"][1].as<int>(), false);
     }
-    
+
+    Serial.print("pos-j1: ");
     Serial.println(j1.read());
 
     if(data["j2"][2].as<String>() == "1"){
@@ -43,7 +44,8 @@ void loop() {
     else{
       j2.write(data["j2"][0].as<int>(), data["j2"][1].as<int>(), false);
     }
-    
+
+    Serial.print("pos-j2: ");
     Serial.println(j2.read());
 
     if(data["j3"][2].as<String>() == "1"){
@@ -52,7 +54,8 @@ void loop() {
     else{
       j3.write(data["j3"][0].as<int>(), data["j3"][1].as<int>(), false);
     }
-    
+
+    Serial.print("pos-j3: ");
     Serial.println(j3.read());
   }
 }
