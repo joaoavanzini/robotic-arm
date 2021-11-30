@@ -26,6 +26,8 @@ private slots:
     void openSerial();
     void reload();
 
+    void on_pushButton_control_play_clicked();
+
 private:
     Ui::MainWindow *ui;
 

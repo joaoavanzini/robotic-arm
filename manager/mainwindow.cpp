@@ -136,3 +136,10 @@ void MainWindow::reload(void){
 
 }
 
+
+void MainWindow::on_pushButton_control_play_clicked()
+{
+    QString value_text = ui->textEdit_program->toPlainText();
+    serialPort->write(value_text.toUtf8());
+}
+
