@@ -1,11 +1,17 @@
+//{"j1":[40, 10, 1], "j2":[60, 10, 1], "j3":[80, 10, 1]}
+
+
+
+#include <ArduinoJson.h>
 #include <VarSpeedServo.h>
 
 VarSpeedServo j1;
 VarSpeedServo j2;
 VarSpeedServo j3;
 
-String pos;
-int pos_x;
+DynamicJsonDocument data(1024);
+
+String input;
 
 void setup() {
   j1.attach(2, 1, 180);
@@ -17,44 +23,36 @@ void setup() {
 }
 
 void loop() {
-//  j1.write(100, 50, true);
-//  j2.write(100, 50, true);
-//  j3.write(100, 50, true);
-//  j1.write(75, 50, true);
-//  j2.write(75, 50, true);
-//  j3.write(75, 50, true);
-//  j1.write(50, 50, true);
-//  j2.write(50, 50, true);
-//  j3.write(50, 50, true);
-//  j1.write(25, 50, true);
-//  j2.write(25, 50, true);
-//  j3.write(25, 50, true);
-
-//  j1.slowmove(100, 50);
-//  j2.slowmove(100, 50);
-//  j3.slowmove(100, 50);
-//  j1.slowmove(75, 50);
-//  j2.slowmove(75, 50);
-//  j3.slowmove(75, 50);
-//  j1.slowmove(50, 50);
-//  j2.slowmove(50, 50);
-//  j3.slowmove(50, 50);
-//  j1.slowmove(25, 50);
-//  j2.slowmove(25, 50);
-//  j3.slowmove(25, 50);
-
-//    j1.sequencePlay(0, 100, true, 0);
-
-//  for (int x = 0; x <= 180; x++){
-//    j1.write(x, 50, true);
-//    Serial.println(j1.read());
-//  }
-
   if(Serial.available() > 0){
-    pos = Serial.readString();
-    j1.write(pos.toInt(), 50, true);
+    input = Serial.readString();
+    
+    deserializeJson(data, input);
+
+    if(data["j1"][2].as<String>() == "1"){
+      j1.write(data["j1"][0].as<int>(), data["j1"][1].as<int>(), true);
+    }
+    else{
+      j1.write(data["j1"][0].as<int>(), data["j1"][1].as<int>(), false);
+    }
+    
     Serial.println(j1.read());
+
+    if(data["j2"][2].as<String>() == "1"){
+      j2.write(data["j1"][0].as<int>(), data["j2"][1].as<int>(), true);
+    }
+    else{
+      j2.write(data["j2"][0].as<int>(), data["j2"][1].as<int>(), false);
+    }
+    
+    Serial.println(j2.read());
+
+    if(data["j3"][2].as<String>() == "1"){
+      j3.write(data["j3"][0].as<int>(), data["j3"][1].as<int>(), true);
+    }
+    else{
+      j3.write(data["j3"][0].as<int>(), data["j3"][1].as<int>(), false);
+    }
+    
+    Serial.println(j3.read());
   }
-
-
 }
