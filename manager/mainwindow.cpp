@@ -231,17 +231,26 @@ void MainWindow::on_pushButton_control_play_clicked()
     QString value_text_program = ui->textEdit_program->toPlainText().replace("\n", " ");
     QStringList splitted = value_text_program.split(" ");
 
+
     if (splitted[0] == "--" && splitted[1] == "start" && splitted[2] == "movement"){
 
-        if(splitted[4] == "-" && splitted[9] == "-" && splitted[14] == "-"){
+        if(splitted[4] == "-" && splitted[9] == "-" && splitted[14] == "-" && splitted[19] == "-" && splitted[24] == "-"  && splitted[29] == "-" && splitted[34] == "-"){
             splitted[5] = '"' + splitted[5];
             splitted[10] = '"' + splitted[10];
             splitted[15] = '"' + splitted[15];
+            splitted[20] = '"' + splitted[20];
+            splitted[25] = '"' + splitted[25];
+            splitted[30] = '"' + splitted[30];
+            splitted[35] = '"' + splitted[35];
 
-            if (splitted[19] == "--" && splitted[20] == "end" && splitted[2] == "movement"){
+            if (splitted[39] == "--" && splitted[40] == "end" && splitted[41] == "movement" && (splitted[3] == splitted[42])){
                 json_final = "{" + splitted[5] + '"' + ":" + jog_list(splitted[6], splitted[7], splitted[8]) + ',' +
                         splitted[10] + '"' + ":" + jog_list(splitted[11], splitted[12], splitted[13]) + ',' +
-                        splitted[15] + '"' + ":" + jog_list(splitted[16], splitted[17], splitted[18]) + '}';
+                        splitted[15] + '"' + ":" + jog_list(splitted[16], splitted[17], splitted[18]) + ',' +
+                        splitted[20] + '"' + ":" + jog_list(splitted[21], splitted[22], splitted[23]) + ',' +
+                        splitted[25] + '"' + ":" + jog_list(splitted[26], splitted[27], splitted[28]) + ',' +
+                        splitted[30] + '"' + ":" + jog_list(splitted[31], splitted[32], splitted[33]) + ',' +
+                        splitted[35] + '"' + ":" + jog_list(splitted[36], splitted[37], splitted[38]) + '}';
 
                 ui->textEdit_information->clear();
                 ui->textEdit_information->insertPlainText("Sending " + splitted[3] + "...\n");
@@ -259,12 +268,15 @@ void MainWindow::on_pushButton_control_play_clicked()
                     ui->textEdit_information->insertPlainText("Serial port is not open!\n");
                  }
             }else{
+                ui->textEdit_information->clear();
                 ui->textEdit_information->insertPlainText("Wrong program formation!\n");
              }
         }else{
+            ui->textEdit_information->clear();
             ui->textEdit_information->insertPlainText("Wrong program formation!\n");
          }
     }else{
+        ui->textEdit_information->clear();
        ui->textEdit_information->insertPlainText("Wrong program formation!\n");
     }
 
