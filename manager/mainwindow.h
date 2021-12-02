@@ -30,6 +30,28 @@ private slots:
 
     void on_pushButton_home_clicked();
 
+    void on_pushButton_move_1_clicked();
+
+    void on_pushButton_move_2_clicked();
+
+    void on_pushButton_move_3_clicked();
+
+    void on_pushButton_move_4_clicked();
+
+    void on_pushButton_move_5_clicked();
+
+    void on_pushButton_move_6_clicked();
+
+    void on_pushButton_move_7_clicked();
+
+    void on_pushButton_move_8_clicked();
+
+    void on_pushButton_move_9_clicked();
+
+    void on_pushButton_move_10_clicked();
+
+    void on_textEdit_program_textChanged();
+
 private:
     Ui::MainWindow *ui;
 

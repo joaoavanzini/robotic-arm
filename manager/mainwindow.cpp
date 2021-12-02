@@ -21,6 +21,19 @@ QElapsedTimer timer;
 
 QString json_final;
 
+QString content_m1;
+QString content_m2;
+QString content_m3;
+QString content_m4;
+QString content_m5;
+QString content_m6;
+QString content_m7;
+QString content_m8;
+QString content_m9;
+QString content_m10;
+
+int program_visible = 1;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -179,6 +192,7 @@ void MainWindow::saveLog(void){
 void MainWindow::clearProgram(){
     ui->textEdit_program->clear();
     ui->textEdit_information->clear();
+    program_visible = 0;
 }
 
 void MainWindow::saveProgram(){
@@ -251,5 +265,144 @@ void MainWindow::on_pushButton_control_play_clicked()
 void MainWindow::on_pushButton_home_clicked()
 {
     ui->textEdit_program->insertPlainText("-- start movement <name>\n- <jog> <angle> <vel> <complete>\n- <jog> <angle> <vel> <complete>\n- <jog> <angle> <vel> <complete>\n-- end movement <name>");
+}
+
+
+void MainWindow::on_pushButton_move_1_clicked()
+{
+    if(program_visible == 1){
+        content_m1 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m1);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_2_clicked()
+{
+    if(program_visible == 1){
+        content_m2 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m2);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_3_clicked()
+{
+    if(program_visible == 1){
+        content_m3 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m3);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_4_clicked()
+{
+    if(program_visible == 1){
+        content_m4 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m4);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_5_clicked()
+{
+    if(program_visible == 1){
+        content_m5 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m5);
+        program_visible = 1;
+    }
+
+}
+
+
+void MainWindow::on_pushButton_move_6_clicked()
+{
+    if(program_visible == 1){
+        content_m6 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m6);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_7_clicked()
+{
+    if(program_visible == 1){
+        content_m7 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m7);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_8_clicked()
+{
+    if(program_visible == 1){
+        content_m8 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m8);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_9_clicked()
+{
+    if(program_visible == 1){
+        content_m9 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m9);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_pushButton_move_10_clicked()
+{
+    if(program_visible == 1){
+        content_m10 = ui->textEdit_program->toPlainText();
+    }
+
+    if (program_visible == 0){
+        ui->textEdit_program->setText(content_m10);
+        program_visible = 1;
+    }
+}
+
+
+void MainWindow::on_textEdit_program_textChanged()
+{
+    if(ui->textEdit_program->toPlainText() != ""){
+        program_visible = 1;
+    }
 }
 
