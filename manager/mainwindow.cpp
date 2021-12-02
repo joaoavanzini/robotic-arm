@@ -190,8 +190,7 @@ void MainWindow::saveLog(void){
 }
 
 void MainWindow::clearProgram(){
-    ui->textEdit_program->clear();
-    ui->textEdit_information->clear();
+    ui->textEdit_program->clear();    
     program_visible = 0;
 }
 
@@ -253,10 +252,20 @@ void MainWindow::on_pushButton_control_play_clicked()
                         ui->textEdit_information->insertPlainText("Executing " + splitted[3] + "...\n");
                         serialPort->write(json_final.toUtf8());
                         ui->textEdit_information->insertPlainText("Shutting down " + splitted[3] + "...\n");
-                    }
-                }
-            }
-        }
+                    }else{
+                           ui->textEdit_information->insertPlainText("Serial port is no writable!\n");
+                        }
+                }else{
+                    ui->textEdit_information->insertPlainText("Serial port is not open!\n");
+                 }
+            }else{
+                ui->textEdit_information->insertPlainText("Wrong program formation!\n");
+             }
+        }else{
+            ui->textEdit_information->insertPlainText("Wrong program formation!\n");
+         }
+    }else{
+       ui->textEdit_information->insertPlainText("Wrong program formation!\n");
     }
 
 }
