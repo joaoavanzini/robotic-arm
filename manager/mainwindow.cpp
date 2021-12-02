@@ -10,10 +10,16 @@
 #include <QElapsedTimer>
 #include <QToolBar>
 #include <QFileDialog>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QJsonObject>
 
 QSerialPort *serialPort;
 QString portNameSerial;
 QElapsedTimer timer;
+
+QString json_final;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -104,10 +110,14 @@ void MainWindow::openSerial(void)
        }else{
         serialPort->open(QIODevice::ReadWrite);
         actionConnect->setIcon(QIcon(":/connect"));
+        ui->textEdit_information->clear();
+        ui->textEdit_information->insertPlainText("Connected to robot!");
        }
     }else{
         actionConnect->setIcon(QIcon(":/disconnect"));
         serialPort->close();
+        ui->textEdit_information->clear();
+        ui->textEdit_information->insertPlainText("Disconnected to robot!");
     }
 }
 
@@ -168,6 +178,7 @@ void MainWindow::saveLog(void){
 
 void MainWindow::clearProgram(){
     ui->textEdit_program->clear();
+    ui->textEdit_information->clear();
 }
 
 void MainWindow::saveProgram(){
@@ -198,9 +209,47 @@ void MainWindow::saveProgram(){
     }
 }
 
+QString MainWindow::jog_list(QString pos1, QString pos2, QString pos3){
+    return "[" + pos1 + "," + pos2 + "," + pos3 + "]";
+}
+
 void MainWindow::on_pushButton_control_play_clicked()
 {
-    QString value_text_program = ui->textEdit_program->toPlainText();
-    serialPort->write(value_text_program.toUtf8());
+    QString value_text_program = ui->textEdit_program->toPlainText().replace("\n", " ");
+    QStringList splitted = value_text_program.split(" ");
+
+    if (splitted[0] == "--" && splitted[1] == "start" && splitted[2] == "movement"){
+
+        if(splitted[4] == "-" && splitted[9] == "-" && splitted[14] == "-"){
+            splitted[5] = '"' + splitted[5];
+            splitted[10] = '"' + splitted[10];
+            splitted[15] = '"' + splitted[15];
+
+            if (splitted[19] == "--" && splitted[20] == "end" && splitted[2] == "movement"){
+                json_final = "{" + splitted[5] + '"' + ":" + jog_list(splitted[6], splitted[7], splitted[8]) + ',' +
+                        splitted[10] + '"' + ":" + jog_list(splitted[11], splitted[12], splitted[13]) + ',' +
+                        splitted[15] + '"' + ":" + jog_list(splitted[16], splitted[17], splitted[18]) + '}';
+
+                ui->textEdit_information->clear();
+                ui->textEdit_information->insertPlainText("Sending " + splitted[3] + "...\n");
+                ui->textEdit_log->insertPlainText(">>" + json_final.toUtf8() + "\n");
+
+                if(serialPort->isOpen()){
+                    if(serialPort->isWritable()){
+                        ui->textEdit_information->insertPlainText("Executing " + splitted[3] + "...\n");
+                        serialPort->write(json_final.toUtf8());
+                        ui->textEdit_information->insertPlainText("Shutting down " + splitted[3] + "...\n");
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+void MainWindow::on_pushButton_home_clicked()
+{
+    ui->textEdit_program->insertPlainText("-- start movement <name>\n- <jog> <angle> <vel> <complete>\n- <jog> <angle> <vel> <complete>\n- <jog> <angle> <vel> <complete>\n-- end movement <name>");
 }
 

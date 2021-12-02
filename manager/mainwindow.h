@@ -28,11 +28,16 @@ private slots:
 
     void on_pushButton_control_play_clicked();
 
+    void on_pushButton_home_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     void configSerial(void);
     void startToolbar(void);
+
+    QString jog_list(QString, QString, QString);
+
     QStringList getPorts(void);
 
     QComboBox *cbListPort;
