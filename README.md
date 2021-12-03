@@ -22,4 +22,4 @@ This repository has the manager and firmware to use on your robotic arm.
 
 # 🛒 Release
 
-To check the roboti arm version, [click here](https://github.com/jvpalhares/robotic-arm/releases).
+To check the robotic arm version, [click here](https://github.com/jvpalhares/robotic-arm/releases).
